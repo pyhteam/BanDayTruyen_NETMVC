@@ -1,0 +1,188 @@
+﻿body {
+    background-color: var(--bg2-color);
+}
+
+a {
+    text-decoration: none;
+}
+/*menu*/
+div.menulap.col-sm-2.flex-shrink-0.p-3 {
+    min-height: 742px;
+    display: inline-block;
+    background-color: var(--bg1-color);
+    color: var(--TextMenuAdmin-color);
+    padding: 0px !important;
+}
+
+div#quanly-collapse, div#baocao-collapse, div#taikhoan-collapse {
+    background-color: var(--bg3-color);
+    margin: 0px;
+    padding: 4px 0px 8px 32px !important;
+}
+
+a.link-dark.rounded {
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+}
+
+    a.link-dark.rounded:hover {
+        color: var(--bg4-color);
+        cursor: pointer;
+    }
+/*button*/
+li.mb-1 {
+    margin: 0px;
+    padding: 0px;
+}
+
+    li.mb-1 > button {
+        text-align: left;
+        margin: 0px;
+        padding: 6px 0px 6px 23px;
+    }
+
+        li.mb-1 > button:hover {
+            cursor: pointer;
+            background-color: var(--bg4-color);
+        }
+
+        li.mb-1 > button:focus {
+            box-shadow: none;
+        }
+
+        li.mb-1 > button > i {
+            padding: 6px 16px 6px 16px;
+            float: right;
+            text-align: center;
+        }
+
+/*body*/
+
+div.col-sm-10.bodymain {
+    padding: 0px;
+    margin: 0px;
+    --bs-gutter-x: 0px !important;
+}
+/*div tren*/
+li.nav-item {
+    margin: 0px 32px 0px 8px;
+}
+
+    li.nav-item > a {
+        color: var(--bg3-color);
+    }
+
+div.col-sm-10.bodymain > div:first-child {
+    height: 87px;
+    line-height: 71px;
+    align-items: center;
+    background-color: white;
+   
+}
+        div.col-sm-10.bodymain > div:first-child>ul{
+            padding-right:32px;
+        }   
+    /*div duoi*/
+    div.col-sm-10.bodymain > div:last-child {
+        text-align: left;
+    }
+
+    div.col-sm-10.bodymain > div:last-child > div {
+        padding: 32px;
+        border-radius: 7px;
+        background-color: white;
+        min-height: 580px;
+        height: max-content;
+    }
+
+/* button */
+.edit-delete-btn{
+    background-color: var(--bg5-color);
+    border: none;
+    border-radius: 5px;
+}
+    .edit-delete-btn>a{
+        color: white;
+    }
+        .edit-delete-btn>a:hover{
+            font-weight:bold;
+            color: white !important;
+        } /*r*/
+
+.new-btn {
+    background-color: var(--bg3-color);
+    border: none;
+    border-radius: 5px;
+    
+}
+    .new-btn > a {
+        color: var(--bg5-color);
+    }
+    .new-btn.btn:hover {
+        background-color: var(--bg3-color);
+    }
+    .new-btn > a:hover {
+        font-weight: bold;
+        color: var(--bg5-color);
+    } /*r*/
+
+
+.back-btn { 
+    width: 130px;
+    background-color: var(--bg5-color);
+    border: none;
+    color: white;
+}
+    .back-btn:hover {
+        width: 130px !important;
+        background-color: var(--bg5-color) !important;
+        border: none;
+        color: white;
+        font-weight: bold;
+    }
+    .back-btn > a {
+        color: white;
+    } /*r*/
+
+.cre-btn {
+    background-color: var(--bg2-color);
+    width: 280px;
+    color: var(--bg5-color);
+}
+    .cre-btn:hover {
+        background-color: var(--bg2-color) !important;
+        color: white;
+        font-weight: bold;
+    } /**r*/
+.delete-btn{
+    background-color: var(--bg2-color);
+    width: 280px;
+    color: var(--bg5-color);
+    border: none;
+}
+
+    .delete-btn:hover {
+        background-color: var(--bg2-color) !important;
+        color: white;
+        font-weight: bold;
+    }
+/**r*/
+.drop-btn{
+    margin-left:32px;
+    border:1px solid black;
+}
+
+.edit-btn {
+    background-color: var(--bg2-color);
+    width: 280px;
+    color: var(--bg5-color);
+}
+
+    .edit-btn:hover {
+        background-color: var(--bg2-color) !important;
+        color: white;
+        font-weight: bold;
+    }
+
+   

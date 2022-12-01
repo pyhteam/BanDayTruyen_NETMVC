@@ -1,0 +1,36 @@
+﻿body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+:root {
+    --bg1-color: #F8F3E8;
+    --bg2-color: #E4D7B9;
+    --bg3-color: #CFBC8C;
+    --bg4-color: #926A00;
+    --bg5-color: #593E2B;
+    --TextMenuAdmin-color: Black;
+}
+.row{
+    padding:0px !important;
+    margin:0px !important;
+}
+/* Set padding to keep content from hitting the edges */
+.container-fluid {
+    padding: 0px !important;
+}
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+/* <img src="@Url.Content(item.UrlHinhAnh)" style="width:100px;height:100px" /> */
+
+/*  <td class="col"> @item.TongTienChi.ToString("#,##0") VNĐ </td> */
+
+/*<td class="col-3" > <p style=" overflow: hidden; text-overflow: ellipsis; line-height: 25px; -webkit-line-clamp: 3; height: 75px; display: -webkit-box; -webkit-box-orient: vertical;" >
+@Html.DisplayFor(modelItem => item.MoTa)
+</p > </td >*/
+/* css Contact*/
+
