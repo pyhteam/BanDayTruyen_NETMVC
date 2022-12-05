@@ -1,0 +1,164 @@
+﻿@model IEnumerable<Jewels.Models.ViewModeHoaDon>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="container-fluid namecreate d-block">
+        <div>
+            <h2>Chi tiết đơn hàng </h2>
+        </div>
+        <div>
+            @* <button type="button" class="btn new-btn ">
+                    @Html.ActionLink("+ Thêm sản phẩm", "Create")
+                </button>*@
+        </div>
+    </div>
+    <hr />
+    <!-- noi dung chung -->
+    @foreach (var item in Model)
+    {
+        if (item.DonHangID == item.DonHangID)
+        {
+            <div class="row">
+                <div class="col-sm-2">
+                    <h6> Mã đơn hàng</h6>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DisplayFor(model => item.DonHangID)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <h6>  Khách hàng </h6>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DisplayFor(model => item.TenKH)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <h6> Ngày đặt </h6>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DisplayFor(model => item.NgayDat)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <h6> Khuyến mãi  </h6>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DisplayFor(model => item.KhuyenMaiID)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <h6> Trạng thái đơn hàng </h6>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DisplayFor(model => item.TenTrangThaiDH)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <h6> Hình thức thanh toán</h6>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DisplayFor(model => item.HinhThucTTName)
+                </div>
+            </div>
+
+            <br />
+        }
+        else
+        {
+            Console.WriteLine("");
+        }
+        break;
+    }
+
+
+    <!--chi tiet-->
+    <div class="container-fluid namecreate">
+        <div style="float: left; ">
+            <h6> Chi tiết hóa đơn</h6>
+
+        </div> <!--end title-->
+        <br />
+        <div class="container" style=" border: 1px solid black;">
+
+            <table class="table">
+                <thead>
+                    <tr class="row">
+                        <th class="col">
+                            Mã chi tiết
+                        </th>
+                        <th class="col">
+                            Tên sản phẩm
+                        </th>
+                        <th class="col">
+                            Số lượng
+                        </th>
+                        <th class="col">
+                            Giá hàng
+                        </th>
+                        <th class="col">
+                            Thành tiền
+                        </th>
+                        <th class="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ct in Model)
+                    {
+                        <tr class="row">
+                            <td class="col-sm-2"> <a href="/ChiTietDHs/Edit/@ct.ChiTietDHID"> @ct.ChiTietDHID</a>  </td>
+                            <td class="col-sm-2"> @Html.DisplayFor(modelItem => ct.SanPhamName) </td>
+                            <td class="col-sm-2"> @Html.DisplayFor(modelItem => ct.SoLuong)</td>
+                            <td class="col-sm-2"> @ct.GiaBan.ToString("#,##0") VNĐ  </td> 
+                            <td class="col-sm-2"> @ct.ThanhTien.ToString("#,##0") VNĐ</td>
+                            <td class="col-sm-2">
+                                <a class="btn " style="width:100px; background-color: var(--bg5-color); color: white;" href="/ChiTietDHs/Delete/@ct.ChiTietDHID"> Delete</a>
+                            </td>
+                        </tr>
+                    }
+                   @* @foreach (var i in Model)
+                    {
+                        <tr class="row">
+                            <td class="col-sm-8 text-sm-end fw-bold"> Tổng tiền: </td>
+                            <td class="col-sm-4">@i.TongTien.ToString("#,##0") VNĐ </td>
+                        </tr>
+                        break;
+                    }*@
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <br />
+    @foreach (var e in Model)
+    {
+
+        <div class="form-group " style=" display: flex; justify-content: flex-start; align-items: center; flex-direction: row; ">
+            <div class="me-3">
+                @Html.ActionLink("Edit", "Edit", new { id = e.DonHangID }, new { @class = "btn btn-default cre-btn" })
+            </div>
+            <div class="">|</div>
+            <div class="">
+                <button class="btn btn-primary back-btn col-sm-3 mx-3">
+                    @Html.ActionLink("Back to List", "Index")
+                </button>
+            </div>
+
+        </div>
+        @* <p>
+                @Html.ActionLink("Edit", "Edit", new { id = e.DonHangID }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>*@
+        break;
+    }
+
+</div>

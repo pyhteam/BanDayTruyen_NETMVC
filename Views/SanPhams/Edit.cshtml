@@ -1,0 +1,143 @@
+﻿@model Jewels.Models.SanPham
+
+@{
+    ViewBag.Title = "Edit sản phẩm ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chỉnh sửa thông tin sản phẩm</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.SanPhamID)
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label " for="TenChatLieuSP">Tên sản phẩm :</label>
+                    <div class=" ">
+                        @Html.EditorFor(model => model.SanPhamName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SanPhamName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label " for="TenChatLieuSP">Giá bán :</label>
+                    <div class="">
+                        @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class=" row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Moi, htmlAttributes: new { @class = "control-label " })
+                    <div>
+                        @Html.EditorFor(model => model.Moi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Moi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BanChay, htmlAttributes: new { @class = "control-label " })
+                    <div>
+                        @Html.EditorFor(model => model.BanChay, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BanChay, "", new { @class = "text-danger" })
+                    </div>
+                </div> 
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Hot, htmlAttributes: new { @class = "control-label " })
+                    <div>
+                        @Html.EditorFor(model => model.Hot, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Hot, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SoLuong, htmlAttributes: new { @class = "control-label " })
+                    <div class="">
+                        @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">Loại sản phẩm</label>
+
+                    <div class="">
+                        @Html.DropDownList("LoaiSPID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LoaiSPID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">Chất liệu sản phẩm</label>
+
+                    <div class="">
+                        @Html.DropDownList("ChatLieuSPID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ChatLieuSPID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.UrlHinhAnhSP, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class=" col-sm-10">
+                    @Html.EditorFor(model => model.UrlHinhAnhSP, new { htmlAttributes = new { @class = "form-control" } })
+                    
+                    @Html.ValidationMessageFor(model => model.UrlHinhAnhSP, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-2"> @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label " })</div>
+            <div class="col-sm-8">
+                
+                @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control " } })
+                @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       
+        <br />
+
+        <div class="form-group row">
+            <div class="col-sm-3  mx-3">
+                <input type="submit" value="Save" class="btn btn-default cre-btn" />
+            </div>
+            |
+            <button class="btn btn-primary back-btn col-sm-3 mx-3">
+                @Html.ActionLink("Back to List", "Index")
+            </button>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

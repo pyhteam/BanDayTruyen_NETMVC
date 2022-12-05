@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Jewels.Models.KhuyenMai>
+@{ ViewBag.Title = " Khuyến mãi";
+        }
+
+<div class="container">
+    <h2 style="text-align: center; padding: 20px ">Chương trình khuyến mãi</h2>
+    @foreach(var i in Model) {
+      if(i.NgayKetThuc >= DateTime.Now) 
+        { 
+            <div class="row" style=" border: 1px solid black; border-radius:5px;">
+                <div class="col-sm-4" style="padding: 0px;">
+                    <img src="@Url.Content(i.UrlHinhAnhKM)" class="card-img-top" alt="@i.Title" style="height:auto; max-width: 100%; border-radius:5px 0px 0px 5px;"/>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row"> <h4> @i.Title </h4> <h6 style="color: blue">Mã giảm: @i.KhuyenMaiID</h6></div>
+                    <div class="row"> <p> Số tiền giảm: @i.TienGiam.ToString("#,##0") VNĐ </p></div>
+                    <div class="row "> <p style=" overflow: hidden; text-overflow: ellipsis; line-height: 25px; -webkit-line-clamp: 2;  display: -webkit-box; -webkit-box-orient: vertical;"> @i.MoTa </p> </div>
+                    <div class="row">
+                        <div class="col">Ngày bắt đầu: @i.NgayBatDau</div>
+                        <div class="col">Ngày kết thúc: @i.NgayKetThuc</div>
+                    </div>
+                </div>
+
+            </div>
+            <br />
+    }
+    }
+</div>

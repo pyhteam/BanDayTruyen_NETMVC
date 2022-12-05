@@ -21,7 +21,7 @@ namespace Jewels.Models
         [Display(Name = "Sản phẩm hot ")]
         public string Hot { get; set; }
         [Display(Name = "Số lượng ")]
-        public string SoLuong { get; set; }
+        public int SoLuong { get; set; }
         [Display(Name = "Url hình ảnh ")]
         public string UrlHinhAnhSP { get; set; }
         [Display(Name = "Mô tả  ")]

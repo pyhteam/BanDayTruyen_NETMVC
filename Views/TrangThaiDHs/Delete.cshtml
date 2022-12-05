@@ -1,0 +1,34 @@
+﻿@model Jewels.Models.TrangThaiDH
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="container-fluid namecreate">
+        <h3>Bạn có chắc chắn muốn xóa loại chất liệu này không ?</h3>
+        <hr />
+   
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TenTrangThaiDH)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenTrangThaiDH)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger delete-btn" /> |
+                <button class="btn back-btn">@Html.ActionLink("Back to List", "Index")</button>
+
+            </div>
+        }
+    </div>
+</div>

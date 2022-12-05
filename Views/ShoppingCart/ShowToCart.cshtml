@@ -1,0 +1,108 @@
+﻿@model Jewels.Models.Cart
+
+@{
+    ViewBag.Title = "ShowToCart";
+
+}
+<head>
+    <style>
+        #buttonBuyNow {
+            color: black;
+            border-radius: 0px;
+            background: transparent;
+            border: solid 2px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container px-2">
+
+        @if (Model.Items.Count() != 0)
+        {
+            <a href="/"><i title="back" class="fa-solid fa-arrow-left-long" style="color: black; margin-top: 75px; font-size: 30px"></i></a>
+            <h2 style="color: #1F341E; margin-bottom: 0px; margin-bottom: 15px">Giỏ hàng của bạn.</h2>
+
+
+            <table class="table col-sm-9" style="border: .1px solid #BDBDBD">
+                <thead>
+                    <tr>
+                        <th style="border: .1px solid #BDBDBD; font-size: 20px">Product Name</th>
+                        <th style="border: .1px solid #BDBDBD; font-size: 20px">Image</th>
+                        <th style="border: .1px solid #BDBDBD; font-size: 20px">Product Price</th>
+                        <th style="border: .1px solid #BDBDBD; font-size: 20px">Quantity</th>
+                        <th style="border: .1px solid #BDBDBD; font-size: 20px">Price</th>
+                        <th style="border: .1px solid #BDBDBD; font-size: 20px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        double tongtien = Convert.ToDouble(item.shoppingSanpham.GiaBan * item.shoppingSoluong);
+                        <tr>
+                            <td style="border: .1px solid #BDBDBD; font-size: 18px">
+                                @Html.DisplayFor(model => item.shoppingSanpham.SanPhamName)
+                            </td>
+                            <td style="border: .1px solid #BDBDBD; text-align: center">
+                                <img src="@Url.Content(item.shoppingSanpham.UrlHinhAnhSP)" style="width: 200px;" />
+                            </td>
+                            <td style="border: .1px solid #BDBDBD; font-size: 18px">
+                                @item.shoppingSanpham.GiaBan.ToString("#,##0") VNĐ
+                            </td>
+                            <td style="border: .1px solid #BDBDBD; font-size: 18px">
+                                @using (Html.BeginForm("UpdateQuantityInCart", "ShoppingCart"))
+                                {
+                                    <input type="hidden" value="@item.shoppingSanpham.SanPhamID" name="ID_SanPham" />
+                                    <input type="number" min="1" max="30" value="@item.shoppingSoluong" name="SoLuong_SP" style="width: 60px" />
+                                    <input type="submit" value="Update" />
+                                }
+                            </td>
+                            <td style="border: .1px solid #BDBDBD; font-size: 18px">
+                                Thành tiền:  @tongtien.ToString("#,##0") VNĐ
+                            </td>
+                            <td style="border: .1px solid #BDBDBD; font-size: 18px; text-align:center;">
+                                <a class="remove" href="/ShoppingCart/RemoveProductInCart/@item.shoppingSanpham.SanPhamID" style="color: black; text-decoration: none">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr style="border: .1px solid #BDBDBD; font-size: 25px; text-align: right; font-weight: bold">
+                        <td colspan="6" style="border: .1px solid #BDBDBD">Tổng tiền:  @Model.TotalPrice().ToString("#,##0") VNĐ</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="purchase" style="text-align: right">
+                <a href="/Home/Index" id="buttonBuyNow" class="btn btn-primary btn-sm active" type="button" aria-pressed="true">
+                    < Mua thêm
+                </a>
+
+                <a href="/ShoppingCart/Payment" id="buttonBuyNow" class="btn btn-primary btn-sm active" type="button" aria-pressed="true">
+                    Thanh toán
+                </a>
+            </div>
+
+            <br />
+        }
+        else
+        {
+            <div class="container-fluid" style="text-align: center;">
+                <br />
+                <h2>Giỏ hàng của bạn hiện đang trống</h2>
+                <br />
+                <img src="https://img.freepik.com/free-vector/removing-goods-from-basket-refusing-purchase-changing-decision-item-deletion-emptying-trash-online-shopping-app-laptop-user-cartoon-character_335657-2566.jpg?t=st=1655772385~exp=1655772985~hmac=9254177d1d62511e3e31e138f648f390aa859aecb75f7dbaddd9a1f5a10aacb0&w=740" style=" width: 30%; " />
+                <br />
+                <br />
+                <h5 style="text-align: center">
+                    Hãy mua thêm gì đó nhé .  <a href="/" style="color: limegreen">MUA THÊM </a>
+
+                </h5>
+                <br />
+            </div>
+        }
+    </div>
+</body>
+

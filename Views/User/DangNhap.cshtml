@@ -1,0 +1,100 @@
+﻿@model Jewels.Models.KhachHang
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đăng nhập</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+            font-family: "Lato", sans-serif;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url('../../img/bg_Login.jpg');
+            overflow: hidden;
+        }
+
+        .main {
+            margin: 50px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .dn-dk {
+            width: 100%;
+            line-height: 40px;
+            text-align: center;
+            height: 40px;
+            background-image: linear-gradient(white, #CFBC8C);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid row" style=" justify-content: center; padding: 0px; margin: 0px; ">
+        <div class="col-sm-5 main">
+            <div class="container" style="margin: 30px 0">
+                <div class="row" style="margin:0 0 20px 0">
+                    <img style="width:100%; height:auto; " src="~/Img/Logo_koNen.png" />
+                </div>
+                <div class="row" style=" justify-content: center; margin: 20px 0">
+
+                    <a href="~/User/DangNhap" class="col-sm-4 dn-dk"
+                        style="border-right: 1px solid #CFBC8C; border-radius: 5px 0 0 5px; background: #CFBC8C; color:white;">
+                        <strong style="color: #593E2B ">Đăng nhập </strong>
+                    </a>
+                    <a href="~/User/DangKy" class="col-sm-4 dn-dk" style="border-radius: 0 5px 5px 0;">
+                        <strong style="color: #593E2B ">Đăng Ký </strong>
+                    </a>
+                </div>
+                <div class="container" style=" justify-content: center; margin: 20px 0">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row " style=" justify-content: center; margin-bottom:10px;">
+                            <h6 class="control-label col-sm-8">Điện thoại :</h6>
+                            <input class="form-control col-sm-8" id="DienThoai" name="DienThoai" type="text" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="DienThoai"
+                            data-valmsg-replace="true"></span>
+                        </div>
+
+                        <div class="row " style=" justify-content: center">
+                            <h6 class="control-label col-sm-8">Mật khẩu :</h6>
+                            <input class="form-control col-sm-8" id="MatKhau" name="MatKhau" type="password" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="MatKhau"
+                            data-valmsg-replace="true"></span>
+                        </div>
+                        <br />
+
+                        <div class="row " style=" justify-content: center">
+                            <button type="submit" name="button" class="btn col-sm-8"
+                            style="background-color: #593E2B; color:white; font-size:18px;"> Đăng nhập </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    q
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</body>
+
+</html>

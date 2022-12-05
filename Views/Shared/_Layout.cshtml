@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/Layout.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    @{
+        var u = Session["user"] as Jewels.Models.KhachHang;
+    }
+    <div class="container-fluid headertop text-center">
+        <div class="row headertop px-4">
+            <div class="col-sm-3">
+                <img src="~/Img/Logo_KoNen.png" style=" width:197px; " />
+
+            </div>
+            <div class=" col-sm-6 ">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item"><a href="~/Home/Index">Trang chủ</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" style="color: black;" data-bs-toggle="dropdown" href="#"
+                            role="button" aria-expanded="false">Sản phẩm</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="~/Home/Nhan">Nhẫn</a></li>
+                            <li><a class="dropdown-item" href="~/Home/VongTay">Vòng tay</a></li>
+                            <li><a class="dropdown-item" href="~/Home/KhuyenTai">Khuyên tai</a></li>
+                            <li><a class="dropdown-item" href="~/Home/DayChuyen">Dây chuyền</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">@Html.ActionLink("Liên hệ ", "Contact", "Home")</li>
+                    <li class="nav-item">@Html.ActionLink("Khuyến mãi", "KhuyenMai", "Home")</li>
+                </ul>
+            </div>
+            <div class="col-sm-3 ">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item"><a href="~/Home/Search"> <i class="fa fa-1x fa-search" aria-hidden="true"></i>
+                        </a> </li>
+                    <li class="nav-item"><a href="~/Home/TraCuu"> <i class="fa fa-clock-o" aria-hidden="true"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="~/ShoppingCart/ShowToCart">
+                            <i class="fa fa-1x fa-shopping-cart" aria-hidden="true"> </i>
+                            @Html.Action("BagCart", "ShoppingCart")
+                        </a>
+                    </li>
+                    @{
+                        if (Session["userId"] == null)
+                        {
+                            <li class="nav-item"><a href="~/User/DangNhap"> <i class="fa fa-1x fa-sign-in"
+                                    aria-hidden="true"></i> </a> </li>
+                        }
+                        else
+                        {
+                            @* user info *@
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="color: black;" data-bs-toggle="dropdown" href="#"
+                                role="button" aria-expanded="false">
+                                    <i class="fa fa-1x fa-user" aria-hidden="true"></i>
+                                    @Session["email"].ToString()
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="~/User/ThongTin">Thông tin cá nhân</a></li>
+                                    <li><a class="dropdown-item" href="~/ShoppingCart/ShowToCart">Đơn hàng</a></li>
+                                    <li><a class="dropdown-item" href="~/User/DoiMatKhau">Đổi mật khẩu</a></li>
+                                    <li><a class="dropdown-item" href="~/User/DangXuat">Đăng xuất</a></li>
+                                </ul>
+                            </li>
+
+                        }
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid body-content">
+        @RenderBody()
+
+
+    </div>
+    <footer class="container-fluid">
+        <div class="row px-4 bg-footer">
+            <div class="row">
+                <img src="~/Img/Logo_KoNen.png" style=" width: 330px;" />
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+
+                    <ul class="footer_category">
+                        <li>
+                            <hr />
+                            <h5>Cửa hàng bán trang sức Selina</h5>
+                            <hr />
+                        </li>
+                        <li class="nav-link" href="#">698 Sư Vạn Hạnh, P11, Quận 10, TPHCM </li>
+                        <li class="nav-link" href="#">SĐT: 0958328321 - Mail: selina@gmail.com </li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    <ul class="footer_category">
+                        <li>
+                            <hr />
+                            <h5>Giới thiệu </h5>
+                            <hr />
+                        </li>
+                        <li class="nav-link" href="#">Về chúng tôi </li>
+                        <li class="nav-link" href="#">Các dịch vụ cung cấp </li>
+                        <li class="nav-link" href="#" target="_blank">Blog trang sức </li>
+                        <li class="nav-link" href="#" target="_blank">Liên hệ </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <ul class="footer_category">
+                        <li>
+                            <hr />
+                            <h5>Hướng dẫn - Hỗ Trợ</h5>
+                            <hr />
+                        </li>
+                        <li class="nav-link" href="#">Hướng dẫn đo size </li>
+                        <li class="nav-link" href="#">Hướng dẫn mua hàng </li>
+                        <li class="nav-link" href="#">Cẩm nang sử dụng trang sức </li>
+                        <li class="nav-link" href="#">Câu hỏi thường gặp </li>
+                    </ul>
+
+                </div>
+                <div class="col-sm-3">
+                    <ul class="footer_category">
+                        <li>
+                            <hr />
+                            <h5>Chính sách của cửa hàng</h5>
+                            <hr />
+                        </li>
+                        <li class="nav-link" href="#">Chính sách giao hàng </li>
+                        <li class="nav-link" href="#">Chính sách bảo mật </li>
+                        <li class="nav-link" href="#"> Phí giao hàng </li>
+                        <li class="nav-link" href="#"> </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3">
+                    <ul class="footer_category">
+                        <li>
+                            <hr />
+                            <h5>Phương thức thanh toán</h5>
+                            <hr />
+                        </li>
+
+                        <li class="nav-link" href="#"> <img src="~/Img/visa.png"
+                                style="height:36px; padding-right:15px;" /> <img src="~/Img/jcb.png"
+                                style="height:36px;" /> </li>
+
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <ul class="footer_category">
+                        <li>
+                            <hr />
+                            <h5>Kết nối với chúng tôi </h5>
+                            <hr />
+                        </li>
+                        <li class="nav-link" href="#">
+                            <img src="~/Img/insta.png" style="height:36px; padding-right:15px;" />
+                            <img src="~/Img/fb.png" style="height:36px; padding-right:15px;" />
+                            <img src="~/Img/mail.png" style="height:36px; padding-right:15px;" />
+                            <img src="~/Img/youtube.png" style="height:36px; padding-right:15px;" />
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="col-sm-12" style="background: var(--bg5-color); color: white; text-align: center; ">
+        &#64; 2022 Copyright: SelinaShop
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

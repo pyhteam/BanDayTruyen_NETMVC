@@ -1,0 +1,98 @@
+﻿@model Jewels.Models.SanPham
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+    a {
+        color: var(--bg5-color);
+    }
+</style>
+<div class="container">
+    <div class="row " style="margin-top: 20px !important;">
+        @* <div class="col-sm-3"style="border-right:1px solid var(--bg5-color);">
+                <div class="row">
+                    <h4>Sản phẩm liên quan</h4>
+
+                </div>
+            </div>*@
+        <div class="col-sm-4">
+            <!-- img -->
+            <div class="col-sm-4" style="height: 400px;width:400px;text-align: center; ">
+                <div class="product-images" data-columns="4">
+                    <img src="@Url.Content(Model.UrlHinhAnhSP)" class="card-img-top" alt="@Model.SanPhamName" height=350px width=350px>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-5">
+            <div class="product-info">
+                <!-- tên giá bread crumb-->
+                <nav aria-label="breadcrumb" class="px-2 pl-4">
+                    <ol class="breadcrumb" style="background-color: white !important;">
+                        <li class="breadcrumb-item">@Html.ActionLink("Home", "Index", "Home") </li>
+                        <li class="breadcrumb-item">@Html.ActionLink(Model.LoaiSP.TenLoaiSP, "Nhan", "Home") </li>
+                        <li class="breadcrumb-item" aria-current="page">@Model.SanPhamName</li>
+                    </ol>
+                </nav>
+                <!-- ten sp lay tu csdl-->
+                <div class="row">
+                    <h2 class="card-title">@Model.SanPhamName</h2>
+                    <br />
+                    <hr style="border-top: 2px solid black" />
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-6" style="padding: 0px !important;">
+                                <h4>Loại sản phẩm: @Model.LoaiSP.TenLoaiSP</h4>
+                            </div>
+                            <div class="col-sm-6" style="padding: 0px !important;">
+                                <h4>Chất liệu sản phẩm: @Model.ChatLieuSP.TenChatLieuSP </h4>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="price-wrapper">
+                            <!--Gia ban lay tu csdl-->
+                            <p class="price" style="color: var(--bg5-color); font-size:26px;  display: flex;"> @Model.GiaBan.ToString("#,##0") VNĐ</p>
+
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btnActionCart btn btn-buy " style="height: 40px; margin-top: 15px; width: 100%; background-color: #ad2a36; ">
+                                <a href="/ShoppingCart/AddtoCart/@Html.DisplayFor(model => model.SanPhamID).ToString()" style="color: white; text-decoration: none; font-weight:bold">MUA NGAY</a>
+                            </button>
+                        </div>
+                        <div class="row " style="margin-top: 20px !important; text-align: center;">
+                            <p>Tư vấn ngay : <b style="color: #ad2a36">1800 - 4567</b> (miễn phí)</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row " style="margin-top: 20px !important;">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Thông tin sản phẩm </b></a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        @Model.MoTa
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

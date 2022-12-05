@@ -54,25 +54,21 @@ namespace Jewels.Controllers
         [HttpPost]
         public ActionResult DangNhap(string DienThoai, string MatKhau)
         {
-            string usr = DienThoai;
-            string pwp = MatKhau;
-
-            var islogin = db.KhachHangs.SingleOrDefault(x => x.DienThoai.Equals(usr) && x.MatKhau.Equals(pwp));
-
-            if (islogin != null)
+            var user = db.KhachHangs.SingleOrDefault(x => x.DienThoai.Equals(DienThoai) && x.MatKhau.Equals(MatKhau));
+            if (user != null)
             {
-                if (DienThoai == "Ad6412")
+                if (user.DienThoai == "Ad6412")
                 {
 
-                    Session["user"] = islogin;
-
+                    Session["admin"] = user;
                     return RedirectToAction("Index", "DonHangs");
                 }
                 else
                 {
-                    Session["user"] = islogin;
-                    return RedirectToAction("Index", "Home");
-                    /*return RedirectToAction("ShowToCart", "ShoppingCart");*/
+                    Session["Email"] = user.Email;
+                    Session["userId"] = user.KhachHangID;
+
+                    return RedirectToAction("ShowToCart", "ShoppingCart");
                 }
             }
             else

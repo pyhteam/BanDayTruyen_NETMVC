@@ -1,0 +1,39 @@
+﻿@model Jewels.Models.ChatLieuSP
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="container-fluid namecreate">
+        <h3>Bạn có chắc chắn muốn xóa loại chất liệu này không ?</h3>
+        <hr />
+        <div class="row">
+            <div class="row pb-2">
+                <label class="col-sm-3 fw-bold">ID :</label>
+                <div class="col-sm-8">@Html.DisplayFor(model => model.ChatLieuSPID)</div>
+            </div>
+            <br />
+            <div class="row pb-2">
+                <label class="col-sm-3 fw-bold">Tên loại sản phẩm :</label>
+                <div class="col-sm-8">@Html.DisplayFor(model => model.TenChatLieuSP)</div>
+            </div>
+            <br />
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-danger delete-btn" /> |
+                    <button class="btn back-btn">@Html.ActionLink("Back to List", "Index")</button>
+
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+

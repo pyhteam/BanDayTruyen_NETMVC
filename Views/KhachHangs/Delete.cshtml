@@ -1,0 +1,66 @@
+﻿@model Jewels.Models.KhachHang
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container">
+    <div class="container-fluid namecreate">
+        <h3>Bạn có chắc muốn xóa khách hàng này không?</h3>
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TenKH)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenKH)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DienThoai)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DienThoai)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MatKhau)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MatKhau)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger delete-btn" /> |
+                <button class="btn back-btn">@Html.ActionLink("Back to List", "Index")</button>
+
+            </div>
+        }
+    </div>
+</div>

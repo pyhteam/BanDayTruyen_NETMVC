@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Jewels.Models.DonHang>
+    
+
+@{
+    ViewBag.Title = "Tra cứu đơn hàng ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="width:80%; margin:40px auto 20px auto !important;">
+    <h3>Tra cứu lịch sử đơn hàng</h3>
+    <br />
+    <div>
+        @using (Html.BeginForm("TraCuu", "Home", FormMethod.Get))
+        {
+            <div class="form-group row" style="display: flex; justify-content: flex-end;">
+                <input id="searchString" name="searchString" type="text" value=""placeholder="Nhập số điện thoại đã đặt hàng"style="width:500px; border-radius:9px;">
+                <input type="submit" class="btn mx-2 col-sm-2" style="background-color: var(--bg5-color); color:white;" value="Tìm đơn">
+            </div>
+        }
+        <br />
+      
+
+        <div>
+            @if (Model.Count() == 0)
+            {
+              
+            }
+            else
+            {
+                <table class="table">
+                    <tr>
+                        <th>
+                            <label>Đơn hàng ID </label>
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TenKH)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DienThoai)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DiaChi)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TrangThaiDH.TenTrangThaiDH)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.HinhThucTT.HinhThucTTName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NgayDat)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TongTien)
+                        </th>
+
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DonHangID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DienThoai)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DiaChi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrangThaiDH.TenTrangThaiDH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HinhThucTT.HinhThucTTName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NgayDat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TongTien)
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+                <br />
+                <div style="float: right;">
+                    <p>Để hủy đơn hàng xin mời quý khách liên hệ hotline : <b style="color: #ad2a36">1800 - 4567</b> (miễn phí)</p>
+                </div>
+
+            }
+        </div> <!-- end table -->
+    </div>
+    <br />
+</div>
+
+
+
+

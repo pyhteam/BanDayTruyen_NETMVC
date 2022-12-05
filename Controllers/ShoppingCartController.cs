@@ -1,7 +1,11 @@
 ﻿using Jewels.DAL;
 using Jewels.Models;
+using Jewels.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,32 +37,39 @@ namespace Jewels.Controllers
         }
 
         public ActionResult ShowToCart()
-        {   
+        {
             if (Session["Cart"] == null)
                 return RedirectToAction("NullCart", "ShoppingCart");
             Cart cart = Session["Cart"] as Cart;
+
             return View(cart);
         }
-        
-        public ActionResult ShowSale(string KhuyenMaiID)
+        [HttpPost]
+        public JsonResult ShowSale(string KhuyenMaiID)
         {
             string idkm = "";
+            int tienGiamGia = 0;
             if (!String.IsNullOrEmpty(KhuyenMaiID))
-            { 
-                KhuyenMai khuyenMai = db.KhuyenMais.FirstOrDefault(x => x.KhuyenMaiID == KhuyenMaiID);
-               
-                    ViewBag.Giam = khuyenMai.TienGiam;
-                    idkm = khuyenMai.KhuyenMaiID.ToString();
-               
-            }
-            else
             {
-                ViewBag.Giam = 0;
-            }
+                KhuyenMai khuyenMai = db.KhuyenMais.FirstOrDefault(x => x.KhuyenMaiID == KhuyenMaiID);
 
-            ViewBag.IDKhuyenMai = idkm;
-            ViewBag.KhuyenMaiID = new SelectList(db.KhuyenMais, "KhuyenMaiID", "KhuyenMaiID");
-            return View("Payment");
+                if (khuyenMai == null)
+                {
+                    return Json(new
+                    {
+                        Success = false,
+                        Message = "Mã giảm giá không tồn tại"
+                    });
+                }
+                tienGiamGia = khuyenMai.TienGiam;
+                idkm = khuyenMai.KhuyenMaiID;
+            }
+            return Json(new
+            {
+                Success = true,
+                IDKhuyenMai = idkm,
+                TienGiamGia = tienGiamGia
+            });
         }
 
         public ActionResult NullCart()
@@ -82,94 +93,126 @@ namespace Jewels.Controllers
             return RedirectToAction("ShowToCart", "ShoppingCart");
         }
 
-       
-        public ActionResult CreateOrder()
+        [HttpPost]
+        public ActionResult CreateOrder(OrderQuery orderQuery)
         {
-            ViewBag.KhuyenMaiID = new SelectList(db.KhuyenMais, "KhuyenMaiID", "KhuyenMaiID");
-            ViewBag.TrangThaiDHID = new SelectList(db.TrangThaiDHs, "TrangThaiDHID", "TenTrangThaiDH");
-            ViewBag.HinhThucTTID = new SelectList(db.HinhThucTTs, "HinhThucTTID", "HinhThucTTName");
-
+            if (Session["Cart"] == null)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = "Giỏ hàng trống"
+                });
+            }
             Cart cart = Session["Cart"] as Cart;
-            if (Session["user"] == null)
+            // Do khách hàng không đăng nhập nên điền tay 
+            if (Session["userId"] == null)
             {
                 try
                 {
                     DonHang donHang = new DonHang();
 
                     donHang.TrangThaiDHID = 1;
-
-                   /* donHang.TenKH = donHang.TenKH;
-                    hoaDon.DienThoai = dienThoai;
-                    hoaDon.DiaChi = diaChi;*/
-                    
                     donHang.NgayDat = DateTime.Now;
-                    donHang.TongTien = cart.TotalPrice();
-
+                    donHang.TongTien = orderQuery.TongTien;
+                    donHang.DiaChi = orderQuery.DiaChi;
+                    donHang.DienThoai = orderQuery.DienThoai;
+                    donHang.TenKH = orderQuery.TenKH;
+                    donHang.HinhThucTTID = orderQuery.HinhThucTTID;
+                    donHang.KhuyenMaiID = orderQuery.KhuyenMaiID;
                     db.DonHangs.Add(donHang);
-                    db.SaveChanges();
+
                     foreach (var item in cart.Items)
                     {
                         ChiTietDH chiTiet = new ChiTietDH();
                         chiTiet.DonHangID = donHang.DonHangID;
-
                         chiTiet.SanPhamID = item.shoppingSanpham.SanPhamID;
                         chiTiet.SoLuong = item.shoppingSoluong;
-                        chiTiet.ThanhTien = (int)(item.shoppingSanpham.GiaBan * item.shoppingSoluong);
-
+                        chiTiet.ThanhTien = item.shoppingSanpham.GiaBan * item.shoppingSoluong;
                         db.ChiTietDHs.Add(chiTiet);
-                        db.SaveChanges();
                     }
 
-                    db.SaveChanges();
+                   ;
                     cart.RemoveAll();
-                    return RedirectToAction("Done", "ShoppingCart");
+
+                    return Json(new
+                    {
+                        Success = db.SaveChanges() > 0,
+                        Message = "Order Success"
+                    });
                 }
                 catch
                 {
-                    return RedirectToAction("Payment", "ShoppingCart");
+                    return Json(new
+                    {
+                        Success = false,
+                        Message = "Order false"
+                    });
                 }
             }
-            else
+            else // neu da dang nhap thi lay luôn thong tin 
             {
-                var u = Session["user"] as Jewels.Models.KhachHang;
-                    try
+                int userId = int.Parse(Session["userId"].ToString());
+                var userLogin = db.KhachHangs.FirstOrDefault(x => x.KhachHangID.Equals(userId));
+                if (userLogin == null)
+                {
+                    return HttpNotFound();
+                }
+                try
+                {
+                    DonHang hoaDon = new DonHang();
+
+                    hoaDon.TenKH = userLogin.TenKH;
+                    hoaDon.DienThoai = userLogin.DienThoai;
+                    hoaDon.DiaChi = userLogin.DiaChi;
+                    hoaDon.NgayDat = DateTime.Now;
+                    hoaDon.TongTien = orderQuery.TongTien;
+                    hoaDon.KhuyenMaiID = orderQuery.KhuyenMaiID;
+                    hoaDon.HinhThucTTID = orderQuery.HinhThucTTID;
+                    hoaDon.TrangThaiDHID = 1;
+                    db.DonHangs.Add(hoaDon);
+
+                    foreach (var item in cart.Items)
                     {
-                            DonHang hoaDon = new DonHang();
+                        ChiTietDH chiTiet = new ChiTietDH();
+                        chiTiet.DonHangID = hoaDon.DonHangID;
+                        chiTiet.SanPhamID = item.shoppingSanpham.SanPhamID;
+                        chiTiet.SoLuong = item.shoppingSoluong;
+                        chiTiet.ThanhTien = (int)(item.shoppingSanpham.GiaBan * item.shoppingSoluong);
+                        db.ChiTietDHs.Add(chiTiet);
+                        // update soluong
+                        var sanPham = db.SanPhams.FirstOrDefault(x => x.SanPhamID == item.shoppingSanpham.SanPhamID);
+                        if (sanPham == null)
+                        {
+                            continue;
+                        }
+                        sanPham.SoLuong = sanPham.SoLuong - 1;
+                        db.Entry(sanPham).State = EntityState.Modified;
 
-                            hoaDon.TenKH = u.TenKH;
-                            hoaDon.DienThoai = u.DienThoai;
-                            hoaDon.DiaChi = u.DiaChi;
-                            hoaDon.NgayDat = DateTime.Now;
-                            hoaDon.TongTien = (int)(cart.TotalPrice());
-
-                            db.DonHangs.Add(hoaDon);
-                            db.SaveChanges();
-
-                            foreach (var item in cart.Items)
-                            {
-                                ChiTietDH chiTiet = new ChiTietDH();
-                                chiTiet.DonHangID = hoaDon.DonHangID;
-
-                                chiTiet.SanPhamID = item.shoppingSanpham.SanPhamID;
-                                chiTiet.SoLuong = item.shoppingSoluong;
-                                chiTiet.ThanhTien = (int)(item.shoppingSanpham.GiaBan * item.shoppingSoluong);
-
-                                db.ChiTietDHs.Add(chiTiet);
-                                db.SaveChanges();
-                            }
-
-                            db.SaveChanges();
-                            cart.RemoveAll();
-                            return RedirectToAction("Done", "ShoppingCart");
+                        // db.SaveChanges();
                     }
-                    catch
+
+                    cart.RemoveAll();
+                    userLogin.TichLuy += orderQuery.TongTien;
+                    db.Entry(userLogin).State = EntityState.Modified;
+                    return Json(new
                     {
-                            return RedirectToAction("Payment", "ShoppingCart");
-                    }
+                        Success = db.SaveChanges() > 0,
+                        Message = "Order Success"
+                    });
+                }
+                catch
+                {
+                    return Json(new
+                    {
+                        Success = false,
+                        Message = "Order fail"
+                    });
+                }
             }
-                
 
-            
+
+
 
         }
         public ActionResult Done()
@@ -187,11 +230,21 @@ namespace Jewels.Controllers
             ViewBag.HinhThucTTID = new SelectList(db.HinhThucTTs, "HinhThucTTID", "HinhThucTTName");
 
             Cart cart = Session["Cart"] as Cart;
+            // Check login
+            KhachHang khachHang = new KhachHang();
+            if (Session["userId"] != null)
+            {
+                int id = int.Parse(Session["userId"].ToString());
+                khachHang = db.KhachHangs.FirstOrDefault(x => x.KhachHangID.Equals(id));
+            }
+
             if (cart == null || Session["Cart"] == null)
             {
                 cart = new Cart();
                 Session["Cart"] = cart;
             }
+
+            ViewBag.UserLogin = khachHang;
             return View(cart);
         }
 

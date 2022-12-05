@@ -1,0 +1,104 @@
+﻿@model Jewels.Models.SanPham
+
+@{
+    ViewBag.Title = "Delete sản phẩm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="container-fluid namecreate">
+        <h3>Bạn có chắc muốn xóa sản phẩm này không?</h3>
+
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dd>
+                @Html.DisplayFor(model => model.ChatLieuSP.TenChatLieuSP)
+            </dd>
+
+
+            <dd>
+                @Html.DisplayFor(model => model.LoaiSP.TenLoaiSP)
+            </dd>
+
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SanPhamName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SanPhamName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.GiaBan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.GiaBan)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Moi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Moi)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BanChay)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BanChay)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Hot)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Hot)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SoLuong)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UrlHinhAnhSP)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UrlHinhAnhSP)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MoTa)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger delete-btn" /> |
+                <button class="btn back-btn">@Html.ActionLink("Back to List", "Index")</button>
+
+            </div>
+        }
+
+    </div>
+</div>

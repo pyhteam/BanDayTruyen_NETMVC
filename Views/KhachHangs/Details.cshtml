@@ -1,0 +1,62 @@
+﻿@model Jewels.Models.KhachHang
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2> Thông tin chi tiết khách hàng</h2>
+
+<div>
+    <hr />
+        <div class="row">
+            <div class="col-sm-4"><p> <b>@Html.DisplayNameFor(model => model.TenKH) :</b>@Html.DisplayFor(model => model.TenKH)</p></div>
+            <div class="col-sm-3"><p> <b>@Html.DisplayNameFor(model => model.TichLuy) :</b>@Html.DisplayFor(model => model.TichLuy)</p></div>
+            <div class="col-sm-3"><p>
+                                    <b>Thành viên :</b>
+                                                @{string thanhVien = "Đồng"; }
+                                        @if (Model.TichLuy >= 100000000)
+                                        {
+                                            thanhVien = "Kim cương";
+                                            @thanhVien.ToString();
+
+                                        }
+                                        else if (Model.TichLuy >= 50000000)
+                                        {
+                                            thanhVien = "Vàng";
+                                            @thanhVien.ToString();
+                                        }
+                                        else if (Model.TichLuy >= 25000000)
+                                        {
+                                            thanhVien = "Bạc";
+                                            @thanhVien.ToString();
+                                        }
+                                        else
+                                        {
+                                            @thanhVien.ToString();
+                                        }
+                                    </p></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">  <p> <b> @Html.DisplayNameFor(model => model.DienThoai) :  </b> @Html.DisplayFor(model => model.DienThoai)</p></div>
+            <div class="col-sm-3">  <p> <b> @Html.DisplayNameFor(model => model.Email) :  </b> @Html.DisplayFor(model => model.Email)</p></div>
+            <div class="col-sm-5">  <p> <b> @Html.DisplayNameFor(model => model.DiaChi) :  </b> @Html.DisplayFor(model => model.DiaChi)</p></div>
+        </div>
+        <div class="row">
+            <p> <b> @Html.DisplayNameFor(model => model.MatKhau) :  </b> @Html.DisplayFor(model => model.MatKhau)</p>
+
+        </div>
+       
+</div>
+<div class="form-group " style=" display: flex; justify-content: flex-start; align-items: center; flex-direction: row; ">
+    <div class="me-3">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.KhachHangID }, new { @class = "btn btn-default cre-btn" })
+    </div>
+    <div class="">|</div>
+    <div class="">
+        <button class="btn btn-primary back-btn col-sm-3 mx-3">
+            @Html.ActionLink("Back to List", "Index")
+        </button>
+    </div>
+
+</div>

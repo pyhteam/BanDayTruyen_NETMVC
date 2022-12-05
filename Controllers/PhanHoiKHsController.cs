@@ -21,15 +21,15 @@ namespace Jewels.Controllers
         // GET: PhanHoiKHs
         public ActionResult Index(int? page)
         {
-            /* if (Session["user"] == null)
+            /* if (Session["user"] == null) 
             {
                 return RedirectToAction("DangNhap", "User");
             }*/
 
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
-            var pageSize = 8;
+            var pageSize = 5;
             var IsPhanHoiKHs = db.PhanHoiKHs.AsNoTracking()
-                   .OrderByDescending(x => x.PhanHoiID);
+                   .OrderBy(x => x.PhanHoiID );
             PagedList<PhanHoiKH> models = new PagedList<PhanHoiKH>(IsPhanHoiKHs, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
 

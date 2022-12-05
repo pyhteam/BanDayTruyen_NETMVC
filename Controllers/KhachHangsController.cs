@@ -30,7 +30,7 @@ namespace Jewels.Controllers
              }*/
 
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
-            var pageSize = 8;
+            var pageSize = 6;
             var IsKhachHangs = db.KhachHangs.AsNoTracking()
                    .OrderByDescending(x => x.KhachHangID);
             PagedList<KhachHang> models = new PagedList<KhachHang>(IsKhachHangs, pageNumber, pageSize);

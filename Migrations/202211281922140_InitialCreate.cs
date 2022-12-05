@@ -26,7 +26,7 @@
                         Moi = c.String(),
                         BanChay = c.String(),
                         Hot = c.String(),
-                        SoLuong = c.String(),
+                        SoLuong = c.Int(),
                         UrlHinhAnhSP = c.String(),
                         MoTa = c.String(),
                         LoaiSPID = c.Int(nullable: false),

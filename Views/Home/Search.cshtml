@@ -1,0 +1,142 @@
+﻿@using PagedList.Mvc
+@using System.Globalization;
+
+@model  PagedList.IPagedList<Jewels.Models.SanPham>
+
+
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewBag.Title = "Search / Trang " + CurrentPage;
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        div.gallery img {
+            width: 150px;
+            height: 150px;
+            margin: 30px;
+            display: inline-block;
+        }
+
+        .zoomPic:hover {
+            transform: scale(1.5);
+            transition: transform .2s;
+        }
+
+        div.gallery {
+            width: auto;
+            height: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        #buttonCart {
+            color: black;
+            border-radius: 0px;
+            background: transparent;
+            border: solid 2px;
+            font-weight: bold;
+        }
+
+        .TwoButton {
+            transition: .4s ease;
+            opacity: 0;
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .col-md-3:hover .TwoButton {
+            opacity: 1;
+        }
+
+        #proItem {
+            padding: 0px;
+            margin: 0px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h3 style="text-align: center; padding-top:40px;">Tìm kiếm sản phẩm</h3>
+    <div style="text-align: center; margin-top: 20px">
+        <div class="form-group">
+            <div class="input-group" style="margin: 0 auto; width: 250px; border-radius: 5px;">
+                <input type="search" id="Search" placeholder="Search here..." class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 60px">
+        <div class="row" style="justify-content: center; display: flex; ">
+            @foreach (var item in Model)
+            {
+                if (item.SoLuong != 0)
+                {
+                    <div id="proItem" class="col-sm-2">
+                        <div style="margin: 0px;width:95%;height:100%; padding: 0px; background-image: linear-gradient(white, var(--bg1-color)); ">
+                            <div class="gallery">
+                                <a href="@Url.Action("Index", "ProductDetail", new { id = item.SanPhamID })">
+                                    <img style="width:200px; height:auto;" class="zoomPic" src="@Url.Content(item.UrlHinhAnhSP)" alt="ảnh lỗi rồi">
+                                </a>
+                            </div>
+
+                            <p>@item.SanPhamName</p>
+                            <p>@item.GiaBan.ToString("#,###") VNĐ </p>
+                        </div>
+                        
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <br />
+    <div style="text-align:center; ">
+        @if (Model.PageCount == 0 || Model.PageCount == 1)
+        {
+
+        }
+        else
+        {
+            <div>
+                <div class="pagination" style="width: 100% ;">
+                    <div class="row">
+                        <div class="col-sm-3" style="">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
+                        <div class="col-sm-6" style="text-align: center;">@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                function Contains(text_one, text_two) {
+                    if (text_one.indexOf(text_two) != -1) return true;
+                }
+                $("#Search").keyup(function () {
+                    var searchText = $("#Search").val().toLowerCase();
+                    $(".col-sm-2").each(function () {
+                        if (!Contains($(this).text().toLowerCase(), searchText)) {
+                            $(this).hide();
+                        } else {
+                            $(this).show();
+                        }
+                    })
+                })
+            })
+        </script>
+</body>
+</html>

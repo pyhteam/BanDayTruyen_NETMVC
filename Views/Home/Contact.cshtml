@@ -1,0 +1,167 @@
+﻿S
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link href="~/Content/Site.css" rel="stylesheet" /><link href = "~/Content/Layout.css" rel = "stylesheet" />
+}
+<head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    body {
+        font-family: 'Lato', sans-serif;
+    }
+
+    h1 {
+        margin-bottom: 40px;
+    }
+
+    label {
+        color: #333;
+    }
+
+    .btn-send {
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        width: 80%;
+        margin-left: 3px;
+    }
+
+    .help-block.with-errors {
+        color: #ff5050;
+        margin-top: 5px;
+    }
+
+    .card {
+        --bs-card-border-color: none;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+</style>
+<body>
+    <div class="row">
+        <img src="~/Img/baner_Contact.png" style="width:100%; padding: 0px;" />
+    </div>
+    <div class="card">
+        <h2 style="text-align:center"> Gửi thông tin liên hệ </h2>
+        <div class="row ">
+            <div class="col-lg-7 mx-auto">
+                <div class="card mt-2 mx-auto p-4 bg-light">
+
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_name">Họ và tên</label>
+                                    <input id="TenKH" type="text" name="TenKH" class="form-control" placeholder="Nhập họ tên..." required="required" data-error="Firstname is required.">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_need">Mức độ hài lòng của bạn</label>
+                                    <select id="MucDoHaiLong" name="MucDoHaiLong" class="form-control" required="required" data-error="Please specify your need.">
+                                        <option value="" selected disabled>--Chọn mức độ hài lòng của bạn--</option>
+                                        <option>Rất hài lòng</option>
+                                        <option>Bình thường</option>
+                                        <option>Không hài lòng</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="form_message">Lý do*</label>
+                                    <textarea id="MoTa" name="MoTa" class="form-control" placeholder="Điền điều bạn thích/ không thích ở cửa hàng" rows="4" required="required" data-error="Please, leave us a message."></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="Gửi thông tin">
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div><!-- /.row-->
+    </div>
+    <div class="container">
+        <h2 style="text-align:center"> Giới thiệu về thương hiệu trang sức Selina </h2>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Thông tin chung</b></a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        Sở hữu: 37 trung tâm kim hoàn tại 53 tỉnh thành trên cả nước<br />
+                        Địa chỉ trụ sở chính: 698 Sư Vạn Hạnh, P11, Quận 10, TPHCM, Việt Nam<br />
+                        Điện thoại: 0958328321<br />
+                        Fax: (+84) (028) 3995 170<br />
+                        Website: www.selina.com.vn<br />
+                        Cán bộ - công nhân viên: Hơn 600 người, trong đó có hơn 100 nghệ nhân, thợ kim hoàn<br />
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><b>Sứ mệnh</b></a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Hội Tụ và Tỏa Sáng.<br />
+
+                        <b> Biểu tượng </b><br />
+                        Logo được lấy ý tưởng từ kim cương, loại đá quý nhất trong các loại đá quý, biểu trưng cho sự trường tồn và minh bạch.<br />
+
+                        3 viên đá của biểu tượng rất đơn giản, mạnh mẽ, thể hiện sự gắng kết. <br />
+
+                        <b>Màu sắc</b>
+                        <br />
+                        Màu chủ đạo  là vàng nâu thể hiện sự sang trọng, quý báu của vàng bạc.
+                        <br />
+                        <b>Slogan/ Câu khẩu hiệu </b><br />
+
+                        Niềm Tin và Phong Cách
+                        <br />
+
+                        <b>Tầm nhìn:</b> Trở thành công ty hàng đầu Châu Á về chế tác trang sức và bán lẻ sản phẩm tôn vinh vẻ đẹp, vươn tầm thế giới.<br />
+                        <b>Sứ mệnh:</b> Selina không ngừng sáng tạo để mang lại những sản phẩm tinh tế với giá trị thật để tôn vinh vẻ đẹp cho con người và cuộc sống.<br />
+                        <b>Giá trị cốt lõi:</b> Chính trực để trường tồn, Kiên định bám mục tiêu, Quan tâm cùng phát triển, Tận tâm vì khách hàng, Tiên phong tạo khác biệt.<br />
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><b>Maps</b></a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4602263044535!2d106.66517611382254!3d10.776019962150206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f3ae5901877%3A0x42c37972de865906!2zODI4IFPGsCBW4bqhbiBI4bqhbmgsIFBoxrDhu51uZyAxMiwgUXXhuq1uIDEwLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1649859877724!5m2!1svi!2s"
+                                width="1110" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>

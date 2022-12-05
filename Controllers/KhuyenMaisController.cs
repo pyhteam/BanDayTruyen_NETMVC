@@ -30,7 +30,7 @@ namespace Jewels.Controllers
              }*/
 
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
-            var pageSize = 7;
+            var pageSize = 6;
             var IsKhuyenMais = db.KhuyenMais.AsNoTracking()
                    .OrderByDescending(x => x.KhuyenMaiID);
             PagedList<KhuyenMai> models = new PagedList<KhuyenMai>(IsKhuyenMais, pageNumber, pageSize);
@@ -69,7 +69,7 @@ namespace Jewels.Controllers
         }
 
         // GET: KhuyenMais/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -100,7 +100,7 @@ namespace Jewels.Controllers
         }
 
         // GET: KhuyenMais/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -117,7 +117,7 @@ namespace Jewels.Controllers
         // POST: KhuyenMais/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             KhuyenMai khuyenMai = db.KhuyenMais.Find(id);
             db.KhuyenMais.Remove(khuyenMai);

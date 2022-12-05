@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Admin</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/_LayoutAdmin.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="row" style="    margin-right: 0px;    margin-left: 0px;">
+        <!--menu-->
+        <div class="menulap col-sm-2 flex-shrink-0 p-3 ">
+            <a href="/Home/Index" class="d-flex align-items-center text-decoration-none border-bottom border-dark" style="padding: 0  0 17px 17px;">
+                <img src="~/Img/Logo_KoNen.png" style=" width:210px; height:71px;" />
+            </a>
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <button class="btn container-fluid btn-toggle align-items-centeb rounded collapsed" data-bs-toggle="collapse" data-bs-target="#quanly-collapse" aria-expanded="true">
+                        Quản lý
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="collapse show" id="quanly-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="~/DonHangs/Index" class="link-dark rounded">Quản lý đơn hàng </a></li>
+                            <li><a href="~/SanPhams/Index" class="link-dark rounded">Quản lý sản phẩm </a></li>
+                            <li><a href="~/KhachHangs/Index" class="link-dark rounded">Quản lý khách hàng </a></li>
+                            <li><a href="~/KhuyenMais/Index" class="link-dark rounded">Quản lý khuyến mãi </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn container-fluid align-items-centeb collapsed" data-bs-target="#quanly-collapse" aria-expanded="true">
+                        <a href="~/PhanHoiKHs/Index" style="color: black;">Phản hồi khách hàng</a>
+                    </button>
+
+                </li>
+                <li class="mb-1">
+                    <button class="btn container-fluid align-items-centeb collapsed" data-bs-target="#quanly-collapse" aria-expanded="true">
+                        <a href="~/QuanLyDoanhThus/Index" style="color: black;">Quản lý doanh thu</a>
+                    </button>
+
+                </li>
+                <li class="mb-1">
+                    <button class="btn container-fluid btn-toggle align-items-centeb rounded collapsed" data-bs-toggle="collapse" data-bs-target="#quanly-collapse" aria-expanded="false">
+                        <a href="~/PhanHoiKHs/Index"></a>
+                    </button>
+                </li>
+                <!-- quản lý doanh thu :        thống kê -->
+                @* <li class="mb-1">
+                        <button class="btn container-fluid btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#baocao-collapse" aria-expanded="false">
+                            Báo cáo
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </button>
+                        <div class="collapse" id="baocao-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="#" class="link-dark rounded">Báo cáo doanh thu</a></li>
+                                <li><a href="#" class="link-dark rounded">Báo cáo chi tiêu</a></li>
+                            </ul>
+                        </div>
+                    </li>*@
+
+            </ul>
+        </div>
+        <!--main-->
+        <div class="col-sm-10 bodymain">
+            <div class=" container-fluid  ">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item"><a href="~/Home/Index">     <i class="fa fa-1x fa-eye" aria-hidden="true"></i>     </a> </li>
+                    <li class="nav-item"><a href="~/User/DangXuat">     <i class="fa fa-1x fa fa fa-sign-out" aria-hidden="true"></i>   </a></li>
+
+                </ul>
+            </div>
+            <div class="container-fluid bodyadmin">
+                <div style="margin: 32px;">
+                    @RenderBody()
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

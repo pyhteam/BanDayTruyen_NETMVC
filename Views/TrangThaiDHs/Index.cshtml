@@ -1,0 +1,92 @@
+﻿@using PagedList.Mvc
+@model IEnumerable<Jewels.Models.TrangThaiDH>
+
+@{
+
+    ViewBag.Title = "Danh sách trạng thái đơn hàng ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+<style>
+    body {
+        overflow: auto;
+    }
+
+    div.container {
+        font-size: 14px;
+    }
+
+    div.container-fluid.namecreate > div:first-child {
+        float: left;
+    }
+
+    div.container-fluid.namecreate > div:last-child {
+        float: right;
+    }
+</style>
+
+<div class="container">
+    <div class="container-fluid namecreate d-block">
+        <div>
+            <h2>Trạng thái đơn hàng</h2>
+        </div>
+        <div>
+            <button type="button" class="btn new-btn ">
+                @Html.ActionLink("+ Thêm trạng thái đơn hàng", "Create")
+            </button>
+        </div>
+    </div>
+    
+
+    <div class="dropdown" style="display : inline-block;">
+        <button class="btn drop-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Trạng thái đơn hàng
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/DonHangs/Index">All đơn hàng</a></li>
+            <li><a class="dropdown-item" href="/DonHangs/DangXuLy">Đang xử lý</a></li>
+            <li><a class="dropdown-item" href="/DonHangs/DangGiaoHang">Đang giao hàng</a></li>
+            <li><a class="dropdown-item" href="/DonHangs/DaHoanThanh">Đã hoàn thành</a></li>
+            <li><a class="dropdown-item" href="/TrangThaiDHs/Index">Trạng thái đơn hàng</a></li>
+            <li><a class="dropdown-item" href="/HinhThucTTs/Index">Hình thức thanh toán</a></li>
+        </ul>
+    </div>
+    
+
+    <div class="container-fluid ">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr class="row">
+                        <th class="col"> Mã trạng thái đơn hàng </th>
+                        <th class="col"> Tên trạng thái đơn hàng  </th>
+                        <th class="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr class="row">
+
+                            <td class="col"> @item.TrangThaiDHID  </td>
+                            <td class="col"> @Html.DisplayFor(modelItem => item.TenTrangThaiDH) </td>
+
+                            <td class="col">
+                                <div class="edit-delete-btn" style="display: inline-block;">
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.TrangThaiDHID }, new { @class = "btn" })
+                                    <a style="color: white;">|</a>
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.TrangThaiDHID }, new { @class = "btn" })
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>  <!-- /bg-content-->
+    </div>
+
+</div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Jewels.Models.SanPham>
+
+@{
+    ViewBag.Title = "spMoi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card-title > a {
+        color: var(--bg5-color);
+        font-weight: 400;
+        font-size: 20px;
+    }
+
+    .card-text {
+        font-weight: bold;
+        color: var(--bg4-color);
+        font-size: 24px;
+    }
+
+    .container-fluid.row.py-3 > h3 {
+        float: left;
+    }
+
+    .container-fluid.row.py-3 > div {
+        float: right;
+    }
+
+    .div_sp {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 294px;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 5px;
+        background-image: linear-gradient(white, var(--bg1-color));
+    }
+</style>
+<div class="container mb-sm-4" style="width: 80%;">
+    <h3 style="color: var(--bg5-color);" class="text-center my-4"> Sản phẩm mới</h3>
+
+    <div class="row ">
+        @foreach (var i in Model)
+        {
+            if(i.SoLuong != 0) 
+            { 
+            <div class="col-sm-3 ">
+                <div class="div_sp">
+                    <img class="card-img-top" src="@Url.Content(i.UrlHinhAnhSP)" style="height: 200px; width: 200px;" />
+
+                    <div class="card-body" style="float: left;">
+                        <h5 class="card-title"> @Html.ActionLink(i.SanPhamName, "Index", "ProductDetail", new { id = i.SanPhamID }, null) </h5>
+                        <p class="card-text"> @i.GiaBan.ToString("#,##0") VNĐ </p>
+                    </div>
+                </div>
+            </div>
+            }
+        }
+
+    </div>
+
+</div>

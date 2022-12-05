@@ -154,7 +154,7 @@ namespace Jewels.Controllers
 
             var countCTID = db.ChiTietDHs.Where(x => x.DonHangID == id).Count();
 
-           
+
 
 
             var IsCTHDs = (from d in db.DonHangs
@@ -172,7 +172,8 @@ namespace Jewels.Controllers
                                DienThoai = d.DienThoai,
                                TenKH = d.TenKH,
                                DiaChi = d.DiaChi,
-                              
+                               KhuyenMaiID = d.KhuyenMaiID,
+                               TienGiam = km.TienGiam,
                                TenTrangThaiDH = tt.TenTrangThaiDH,
                                HinhThucTTName = ht.HinhThucTTName,
 
@@ -199,7 +200,7 @@ namespace Jewels.Controllers
         // GET: DonHangs/Create
         public ActionResult Create()
         {
-           
+
             ViewBag.KhuyenMaiID = new SelectList(db.KhuyenMais, "KhuyenMaiID", "KhuyenMaiID");
             ViewBag.TrangThaiDHID = new SelectList(db.TrangThaiDHs, "TrangThaiDHID", "TenTrangThaiDH");
             ViewBag.HinhThucTTID = new SelectList(db.HinhThucTTs, "HinhThucTTID", "HinhThucTTName");
@@ -249,11 +250,33 @@ namespace Jewels.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DonHangID,NgayDat,TongTien,TrangThaiDHID,HinhThucTTID,KhuyenMaiID,KhachHangID")] DonHang donHang)
+        public ActionResult Edit([Bind(Include = "DonHangID,NgayDat,TongTien,DienThoai,TenKH,DiaChi,TrangThaiDHID,HinhThucTTID,KhuyenMaiID")] DonHang donHang)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(donHang).State = EntityState.Modified;
+
+                // update soluong
+                if (donHang.TrangThaiDHID == 4)
+                {
+                    var chiTietDHs = db.ChiTietDHs.Where(x => x.DonHangID == donHang.DonHangID).ToList();
+                    if (chiTietDHs != null)
+                    {
+                        foreach (var item in chiTietDHs)
+                        {
+                            var sanPham = db.SanPhams.FirstOrDefault(x => x.SanPhamID == item.SanPhamID);
+                            if (sanPham == null)
+                            {
+                                continue;
+                            }
+                            sanPham.SoLuong += 1;
+                            db.Entry(sanPham).State = EntityState.Modified;
+                        }
+
+
+                    }
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -276,7 +299,7 @@ namespace Jewels.Controllers
             TrangThaiDH trangThaiDH = db.TrangThaiDHs.FirstOrDefault(x => x.TrangThaiDHID == donHang.TrangThaiDHID);
             HinhThucTT hinhThucTT = db.HinhThucTTs.FirstOrDefault(x => x.HinhThucTTID == donHang.HinhThucTTID);
 
-         
+
 
             if (donHang == null)
             {
